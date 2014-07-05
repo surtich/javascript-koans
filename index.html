@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>JavaScript Koans bases on Speaking JavaScript</title>
+		<link rel="stylesheet" href="./css/mocha.css" />
+	</head>
+	<body>
+		<div id="mocha"></div>
+		<script src="./lib/jquery.js"></script>
+		<script src="./lib/chai.js"></script>
+		<script src="./lib/mocha.js"></script>
+		<script>mocha.setup('bdd')</script>
+		<script src="./tests/07_JavaScript_Sintax.js"></script>
+		<script src="./tests/08_Values.js"></script>
+		<script>
+			mocha.checkLeaks();
+			mocha.globals(['jQuery']);
+			mocha.run();
+		</script>
+	</body>
+</html>
