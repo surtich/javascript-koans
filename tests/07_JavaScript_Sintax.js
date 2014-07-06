@@ -5,11 +5,11 @@ describe('Chapter 07 JavaScript Sintax', function() {
 	it('Assing test', function() {
 		var check = true;
         
-		assert(check, true, 'check should be true');
+		assert.strictEqual(check, true, 'check should be true');
 		
 		check = false;
 		
-		//assert(check, ???, 'check should be false');
+		assert.strictEqual(check, true, 'check should be false');
 		
 		check = !check;
 		
