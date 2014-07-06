@@ -12,9 +12,14 @@
 		<script>mocha.setup('bdd')</script>
 		<script src="./tests/07_JavaScript_Sintax.js"></script>
 		<script src="./tests/08_Values.js"></script>
+		<script src="./tests/09_Operators.js"></script>
+		<script src="./tests/10_Booleans.js"></script>
+		<script src="./tests/11_Numbers.js"></script>
+		<script src="./tests/12_Strings.js"></script>
+		<script src="./tests/13_Statements.js"></script>
 		<script>
 			mocha.checkLeaks();
-			mocha.globals(['jQuery']);
+			mocha.globals(['jQuery', 'navigator']);
 			mocha.run();
 		</script>
 	</body>
