@@ -9,11 +9,11 @@ describe('Chapter 07 JavaScript Sintax', function() {
 		
 		check = false;
 		
-		assert.strictEqual(check, true, 'check should be false');
+		//assert.strictEqual(check, ???, 'check should be false');
 		
 		check = !check;
 		
-		//assert(check, ???, 'check should be true');
+		//assert.???(check, ???, 'check should be true');
 		
     });
 	
@@ -21,13 +21,13 @@ describe('Chapter 07 JavaScript Sintax', function() {
 		
 		var sum = 1 + 2;
         
-		//assert(sum, ???);
+		//assert.strictEqual(sum, ???);
 		
 		var name = 'Javier';
 		
 		name += ' Pérez';
 		
-		//assert(check, 'Javier Pérez');
+		//assert.strictEqual(???, 'Javier Pérez');
 		
     });
 	
