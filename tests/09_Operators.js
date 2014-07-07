@@ -55,7 +55,7 @@ describe('Chapter 09 Operators', function() {
 		assert.isTrue(typeof NaN === 'number');
 		assert.isTrue(isNaN(NaN));
 		//assert.is???({} === {});
-		//assert.is???({} == {}); //With object there is no coercion
+		//assert.is???({} == {}); //With objects there is no coercion
 		//assert.is???(new String(3) == new String(3));
 		//assert.is???('3' == new String(3)); //There is coercion when compare primitives with objects
 		//assert.isTrue(3 ??? new String(3));
@@ -68,7 +68,7 @@ describe('Chapter 09 Operators', function() {
 		//assert.is???('' == 0); //Both are flasy <- coercion
 		//assert.is???('' === 0); <- Not coercion
 		//assert.is???(null == 0); //JavaScript quirks
-		//assert.is???(2 == true); Both are tuthy
+		//assert.is???(2 == true); Both are truthy
 		//assert.is???(2 === true);
 		//assert.is???('abc' === true);
 		//assert.is???({} == '[object Object]'); //Object.prototype.toString() is called
@@ -96,7 +96,7 @@ describe('Chapter 09 Operators', function() {
 	});
 	
 	it('Inequality Operators: !== Versus !=', function() {
-		//assert.is???(2 != true); Both are tuthy
+		//assert.is???(2 != true); Both are truthy
 		//assert.is???(2 !== true);
 		
 		//assert.is???(3 !== '3');
