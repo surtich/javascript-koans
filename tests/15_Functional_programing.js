@@ -188,7 +188,17 @@ describe('Chapter 15 Functional programing', function() {
 
 	describe('Exercises', function() {
 		it('Exercise 1', function() {
-			function filter(min, max, fn) {
+			
+			function add() {
+				var i;
+				var sum = 0;
+				for (i = 0; i < arguments.length; i++) {
+					sum += arguments[i];
+				}
+				return sum;
+			}
+			
+			function filterAnSum(min, max, fn) {
 				return function() {
 					var i;
 					var args = [];
@@ -197,21 +207,13 @@ describe('Chapter 15 Functional programing', function() {
 							args.push(arguments[i]); //push() -> to add to array
 						}
 					}
-					return sum.apply(null, args);
+					return add.apply(null, args);
 				};
 			}
 
-			function sum() {
-				var i;
-				var sum = 0;
-				for (i = 0; i < arguments.length; i++) {
-					sum += arguments[i];
-				}
-				return sum;
-			}
 
-			//assert.strictEqual(filter(1, 6, sum)(1, 4, 6), ???);
-			//assert.strictEqual(filter(1, ???, sum)(1, 4, 6, 2, 3), 6);
+			//assert.strictEqual(filter(1, 6, filterAnSum)(1, 4, 6), ???);
+			//assert.strictEqual(filter(1, ???, filterAnSum)(1, 4, 6, 2, 3), 6);
 
 
 			function maxDiff() {
@@ -224,23 +226,7 @@ describe('Chapter 15 Functional programing', function() {
 		});
 
 		it('Exercise 1 refactored: clean code + functional programming', function() {
-			function reduce(arr, fn, initial) {
-
-				initial = fn(initial, arr[0]);
-
-				var remainingArr = arr.slice(1);
-
-				if (remainingArr.length > 0) {
-					return reduce(remainingArr, fn, initial);
-				} else {
-					return initial;
-				}
-			}
-
-			function sum(x, y) {
-				return x + y;
-			}
-
+			
 			function filter(arr, fn, filterArr) {
 				filterArr = filterArr || [];
 
@@ -257,31 +243,45 @@ describe('Chapter 15 Functional programing', function() {
 				}
 			}
 
+			
+			function reduce(arr, fn, initial) {
+
+				initial = fn(initial, arr[0]);
+
+				var remainingArr = arr.slice(1);
+
+				if (remainingArr.length > 0) {
+					return reduce(remainingArr, fn, initial);
+				} else {
+					return initial;
+				}
+			}
+			
 			function checkInRange(value, min, max) {
 				return min <= value && value <= max;
 			}
 
-			function compose(functions) {
-				var i;
-				var result;
-				for (i = 0; i < functions.length; i++) {
-					result = functions[i](result);
-				}
-				return result;
+			function add(x, y) {
+				return x + y;
 			}
-
-			var applyFilter = function(arr, max, min) {
-				return filter(arr, function(value) {
+			
+			var filterInRange = function(arr, max, min) {
+				var rangeFilterFunction = function(value) {
 					return checkInRange(value, max, min);
-				});
+				};
+				return filter(arr, rangeFilterFunction);
 			};
 
-			var makeSum = function(arr) {
-				return reduce(arr, sum, 0);
+			var arraySum = function(arr) {
+				return reduce(arr, add, 0);
 			};
 
-
-			assert.strictEqual(compose([applyFilter([1, 2, 3, 6, 8, 5], 1, 4), makeSum]), 6);
+			var calculateSum = function(arr, max, min) {
+				var filterNumbers = filterInRange(arr, max, min);
+				return arraySum(filterNumbers);
+			};
+			
+			assert.strictEqual(calculateSum([1, 2, 3, 6, 8, 5], 1, 4), 6);
 
 
 			function diff(x, y) {
@@ -304,18 +304,18 @@ describe('Chapter 15 Functional programing', function() {
 				}
 			}
 
-			var calculateMax = function(arr) {
+			var arrayMax = function(arr) {
 				return reduce(arr, max, 0);
 			};
 
-			var calculateMin = function(arr) {
+			var arrayMin = function(arr) {
 				return reduce(arr, min, 0);
 			};
 
 			var calculateMaxDiff = function(arr, maxNumber, minNumber) {
-				var arr = applyFilter(arr, maxNumber, minNumber);
-				var max = calculateMax(arr);
-				var min = calculateMin(arr);
+				var arrFilter = filterInRange(arr, maxNumber, minNumber);
+				var max = arrayMax(arrFilter);
+				var min = arrayMin(arrFilter);
 				return diff(max, min);
 			};
 
@@ -350,30 +350,44 @@ describe('Chapter 15 Functional programing', function() {
 		it('Exercise 1 refactored: using JavaScript API functions + clean code', function() {
 
 			function calculateSum(arr, min, max) {
-				var filterNumbers = filterArrayWithRange(arr, min, max);
-				return filterNumbers.reduce(sum, 0);
+				var filterNumbers = filterInRange(arr, min, max);
+				var sum = arraySum(filterNumbers);
+				return sum;
 			}
 
 			function calculateMaxDiff(arr, min, max) {
-				var filterNumbers = filterArrayWithRange(arr, min, max);
-				return maxDiff(filterNumbers);
+				var filterNumbers = filterInRange(arr, min, max);
+				var diff = maxDiff(filterNumbers);
+				return diff;
 			}
 			
-			function filterArrayWithRange(arr, min, max) {
-				return arr.filter(function (value) {
+			function filterInRange(arr, min, max) {
+				var rangeFilterFunction = function (value) {
 					return checkInRange(value, min, max);
-				});
+				};
+				return arr.filter(rangeFilterFunction);
 			}
 			
-			function sum(x, y) {
+			function arraySum(arr) {
+				return arr.reduce(add, 0);
+			}
+			
+			function add(x, y) {
 				return x + y;
 			}
+			
+			function diff(x, y) {
+				return x -y;
+			}
+			
 			function checkInRange(value, min, max) {
 				return min <= value && value <= max;
 			}
 			
 			function maxDiff(numbers) {
-				return Math.max.apply(null, numbers) - Math.min.apply(null, numbers);
+				var max = Math.max.apply(null, numbers);
+				var min = Math.min.apply(null, numbers);
+				return  diff(max, min);
 			}
 
 			assert.strictEqual(calculateSum([1, 5, 3, 6, 2], 1, 4), 6);
