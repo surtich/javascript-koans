@@ -1,5 +1,3 @@
-var assert = chai.assert;
-
 describe('Chapter 10 Booleans', function() {
 
 	it('Converting to Boolean', function() {

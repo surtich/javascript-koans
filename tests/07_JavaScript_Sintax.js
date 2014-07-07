@@ -1,5 +1,3 @@
-var assert = chai.assert;
-
 describe('Chapter 07 JavaScript Sintax', function() {
 	
 	it('Assing test', function() {

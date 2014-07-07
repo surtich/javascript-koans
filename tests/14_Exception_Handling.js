@@ -1,5 +1,3 @@
-var assert = chai.assert;
-
 describe('Chapter 14 Exception Handling', function() {
 	describe('Exception Handling in JavaScript', function() {
 		it('throw a String Error', function() {

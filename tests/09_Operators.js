@@ -1,5 +1,3 @@
-var assert = chai.assert;
-
 describe('Chapter 09 Operators', function() {
 	
 	it('Operators and Objects', function() {

@@ -1,5 +1,3 @@
-var assert = chai.assert;
-
 describe('Chapter 12 Strings', function() {
 
 	it('Quotes and escaping', function() {

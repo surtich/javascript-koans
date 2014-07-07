@@ -1,5 +1,3 @@
-var assert = chai.assert;
-
 describe('Chapter 13 Statements', function() {
 	describe('variables', function() {
 		it('Declaring and Assigning Variables', function() {

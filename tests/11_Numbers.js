@@ -1,5 +1,3 @@
-var assert = chai.assert;
-
 describe('Chapter 11 Numbers', function() {
 
 	it('Number Literals', function() {

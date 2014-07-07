@@ -1,5 +1,3 @@
-var assert = chai.assert;
-
 describe('Chapter 08 Values', function() {
 
 	it('Some ways to test', function() {
