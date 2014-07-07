@@ -270,9 +270,9 @@ describe('Chapter 15 Functional programing', function() {
 				return result;
 			}
 
-			var applyFilter = function() {
-				return filter([1, 2, 3, 6, 8, 5], function(value) {
-					return checkInRange(value, 1, 4);
+			var applyFilter = function(arr, max, min) {
+				return filter(arr, function(value) {
+					return checkInRange(value, max, min);
 				});
 			};
 
@@ -281,7 +281,7 @@ describe('Chapter 15 Functional programing', function() {
 			};
 
 
-			assert.strictEqual(compose([applyFilter, makeSum]), 6);
+			assert.strictEqual(compose([applyFilter([1, 2, 3, 6, 8, 5], 1, 4), makeSum]), 6);
 
 
 			function diff(x, y) {
@@ -312,14 +312,14 @@ describe('Chapter 15 Functional programing', function() {
 				return reduce(arr, min, 0);
 			};
 
-			var calculateMaxDiff = function() {
-				var arr = applyFilter();
+			var calculateMaxDiff = function(arr, maxNumber, minNumber) {
+				var arr = applyFilter(arr, maxNumber, minNumber);
 				var max = calculateMax(arr);
 				var min = calculateMin(arr);
 				return diff(max, min);
 			};
 
-			assert.strictEqual(calculateMaxDiff(), 3);
+			assert.strictEqual(calculateMaxDiff([1, 2, 3, 6, 8, 5], 1, 4), 3);
 
 		});
 
@@ -350,25 +350,30 @@ describe('Chapter 15 Functional programing', function() {
 		it('Exercise 1 refactored: using JavaScript API functions + clean code', function() {
 
 			function calculateSum(arr, min, max) {
-				return arr.filter(function (value) {
-					return checkInRange(value, min, max);
-				}).reduce(sum, 0);
+				var filterNumbers = filterArrayWithRange(arr, min, max);
+				return filterNumbers.reduce(sum, 0);
 			}
 
 			function calculateMaxDiff(arr, min, max) {
-				var numbers = arr.filter(function (value) {
+				var filterNumbers = filterArrayWithRange(arr, min, max);
+				return maxDiff(filterNumbers);
+			}
+			
+			function filterArrayWithRange(arr, min, max) {
+				return arr.filter(function (value) {
 					return checkInRange(value, min, max);
 				});
-
-				return Math.max.apply(null, numbers) - Math.min.apply(null, numbers);
-			}
-
-			function checkInRange(value, min, max) {
-				return min <= value && value <= max;
 			}
 			
 			function sum(x, y) {
 				return x + y;
+			}
+			function checkInRange(value, min, max) {
+				return min <= value && value <= max;
+			}
+			
+			function maxDiff(numbers) {
+				return Math.max.apply(null, numbers) - Math.min.apply(null, numbers);
 			}
 
 			assert.strictEqual(calculateSum([1, 5, 3, 6, 2], 1, 4), 6);
