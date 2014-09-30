@@ -7,11 +7,11 @@ describe('Chapter 07 JavaScript Sintax', function() {
 		
 		check = false;
 		
-		//assert.strictEqual(check, ???, 'check should be false');
+		assert.strictEqual(check, false, 'check should be false');
 		
 		check = !check;
 		
-		//assert.???(check, ???, 'check should be true');
+		assert.strictEqual(check, true, 'check should be true');
 		
     });
 	

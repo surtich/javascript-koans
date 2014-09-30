@@ -9,19 +9,19 @@ describe('Chapter 08 Values', function() {
 
 		assert.isTrue(typeof check === 'boolean', 'One more way');
 
-		//assert.isFalse(typeof check === 'boolean'); //Why is not working? Fix it without change de validator 
+		//assert.isFalse(typeof check === 'boolean'); //Why is not working? Fix it changing the assertion
 
 	});
 
 	it('ECMAScript types', function() {
 
 		var check = true;
-		//assert.typeOf(check, ???);
+		//assert.typeOf(???, check);
 		check = 'false'; //In JavaScript we can change dinamically the type
-		//assert.strictEqual(typeof check, ???);
+		//assert.strictEqual(???, typeof check);
 
 		var number = 3;
-		//assert.isTrue(typeof check === ???);
+		//assert.isTrue(???, typeof number);
 
 		var me = {};
 		assert.typeOf(me, 'object'); //We can create objects this way
@@ -32,26 +32,26 @@ describe('Chapter 08 Values', function() {
 		//assert.strictEqual(typeof persons, ???); //This is a mistake in JavaScript design: null should be an object type but ...
 
 		var name = 'John';
-		//assert.strictEqual(typeof name, ???);
+		//assert.strictEqual(???, typeof name);
 
 		var you = undefined; //undefined means no value
-		//assert.strictEqual(typeof you, ???);
+		//assert.strictEqual(???, typeof you);
 		
 		//assert.is???(typeof persons === typeof you); //Weird, isn't it?
 
 		var we;
-		//assert.strictEqual(typeof we, ???); //Non initialized variables are undefined (value and type)
-		//assert.strictEqual(we, ???); //Do you see the difference between the two assertions?
+		//assert.strictEqual(???, typeof we); //Non initialized variables are undefined (value and type)
+		//assert.strictEqual(???, we); //Do you see the difference between the two assertions?
 
 		//???
-		//assert.strictEqual(typeof they, 'undefined'); //Warning: Use non declared variables cause a runtime error. Declare they before use it
+		//assert.strictEqual('undefined', typeof they); //Warning: Use non declared variables cause a runtime error. Declare they before use it
 
 		var date = {
 			year: 2017 //Objects can have properties
 		};
-		//assert.strictEqual(typeof date, ???);		
-		//assert.strictEqual(typeof date.year, ???);		
-		//assert.strictEqual(typeof date.month, ???); //Very important: this is ok. Undeclared porperties behave differently than undeclared variables		
+		//assert.strictEqual(???, typeof date);		
+		//assert.strictEqual(??, typeof date.year);		
+		//assert.strictEqual(???, typeof date.month); //Very important: this is ok. Undeclared porperties behave differently than undeclared variables		
 		assert.isFalse('month' in date); //Is better use in operator to check if the property exists		
 		date.month = 7;
 		//assert.is???('month' in date);; //You can dynamically add properties to objects		
@@ -60,8 +60,8 @@ describe('Chapter 08 Values', function() {
 		date.day = 20;
 		assert.isTrue('day' in date);
 		date.day = undefined; //To delete a property, do not do this. See why ->		
-		assert.strictEqual(date.day, undefined);
-		assert.strictEqual(typeof date.day, 'undefined');
+		assert.strictEqual(undefined, date.day);
+		assert.strictEqual('undefined', typeof date.day);
 		//assert.is???('day' in date);
 
 		//assert.strictEqual(3 * 4, ???);
@@ -82,11 +82,22 @@ describe('Chapter 08 Values', function() {
 		//assert.???(number1, number2); //In contrast, all primitive values encoding the same value are considered the same
 
 		var str = 'abc';
-		//assert.strictEqual(str.length === ???);
+		//assert.strictEqual(???, str.length);
 		str.length = 1;
-		//assert.strictEqual(str.length === ???); //With primitive variables, properties can’t be added, or removed
+		//assert.strictEqual(???, str.length); //With primitive variables, properties can’t be added, or removed
 		str.foo = 'bar';
-		//assert.is???('foo' in str);
+		//assert.is???(???, typeof str.foo);
+
+    var str2 = 'abc';
+ 		//assert.is???(str === str2); //Primitive types are compared by value
+
+    str = new String('abc'); //This is not a primitive type, is an object
+    str.foo = 'bar';
+    //assert.strictEqual(???, str.foo); //Objects always are dynamics. You can add or remove attributes to them
+
+    str2 = new String('abc'); //This is not a primitive type, is an object
+ 		//assert.is???(str === str2); //Objects are compared by reference
+    
 	});
 
 	it('Objects', function() {
@@ -94,43 +105,43 @@ describe('Chapter 08 Values', function() {
 		var person = {
 			//firstName: ???
 		};		
-		//assert.strictEqual(person.firstName === 'Jane');		
+		//assert.strictEqual('Jane', person.firstName);		
 		//person.??? = 'Doe';		
-		//assert.strictEqual(person.lastName === 'Doe');		
+		//assert.strictEqual('Doe', person.lastName);		
 		
 		var persons = []; //Empty array		
-		//assert.strictEqual(typeof persons, ???); //Arrays are just objects
+		//assert.strictEqual(???, typeof persons); //Arrays are just objects
 		
 		var fruits = [ 'apple', 'banana', 'cherry' ];		
-		//assert.strictEqual(fruits.length, ???);
-		//assert.strictEqual(fruits[0], ???);
-		//assert.strictEqual(fruits[2], ???);
-		//assert.strictEqual(fruits[4], ???); //Whatch this!
+		//assert.strictEqual(???, fruits.length);
+		//assert.strictEqual(???, fruits[0]);
+		//assert.strictEqual(???, fruits[2]);
+		//assert.strictEqual(???, fruits[4]); //Whatch this!
 		
 		var number1 = 20; //Literal form <- You'll almost always use this
 		var number2 = 20;
-		//assert.strictEqual(number1 + number2, ???);
+		//assert.strictEqual(???, number1 + number2);
 		//assert.is???(number1 === number2);
 		
 		number1 = new Number(20); //Wrapper object form
 		number2 = new Number(20);
-		//assert.strictEqual(number1 + number2, ???); //Looks similar, but ...
+		//assert.strictEqual(???, number1 + number2); //Looks similar, but ...
 		//assert.is???(number1 === number2); //They are objects. Do you see the difference?
 		
 		var str = '123';
-		//assert.strictEqual(typeof Number(srt), ???); //Convert to primitive
-		//assert.strictEqual(str + str, ???);
-		////assert.strictEqual(2 * str, ???);
-		//assert.strictEqual(Number(str) + Number(str), 246);
+		//assert.strictEqual(???, typeof Number(str)); //Convert to primitive
+		//assert.strictEqual(???, str + str);
+		////assert.strictEqual(???, 2 * str);
+		//assert.strictEqual(246, Number(str) + Number(str));
 		
 		var number = 123;
-		//assert.strictEqual(typeof ???(number), 'string'); //Convert to primitive
+		//assert.strictEqual('string', typeof ???(number)); //Convert to primitive
 		
-		//assert.strictEqual(typeof new String('123'), ???);
-		//assert.strictEqual(String(123), ???); //Above statement and this are different
+		//assert.strictEqual(???, typeof new String('123'));
+		//assert.strictEqual(???, String(123)); //Above statement and this are different
 		
 		var bool = new Boolean(true);
-		//assert.strictEqual(typeof bool.valueOf(), ???); //Unwrapping object to primitive
+		//assert.strictEqual(???, typeof bool.valueOf()); //Unwrapping object to primitive
 		
 		assert.strictEqual('abc'.charAt, String.prototype.charAt); //Primitives don’t have methods and borrow them from wrappers
 	
@@ -142,21 +153,21 @@ describe('Chapter 08 Values', function() {
 			return x.foo;
 		}
 		
-		//assert.strictEqual(typeof returnFoo, ???); Interesting: Funtions has thier own type.You will see the importance of this later
+		//assert.strictEqual(???, typeof returnFoo); Interesting: Funtions has thier own type.You will see the importance of this later
 		
 		var bar = {
 			foo: 3
 		};		
-		//assert.strictEqual(returnFoo(???), 3); 
+		//assert.strictEqual(3, returnFoo(???)); 
 		
 		var baz = {};
-		//assert.strictEqual(returnFoo(baz), ???);
+		//assert.strictEqual(???, returnFoo(baz));
 		
 		//??? <- Your work is expected here
-		//assert.strictEqual(returnFoo(bar), undefined); //How can you achieve this...
-		//assert.strictEqual(typeof bar.foo, undefined); //...and this?
+		//assert.strictEqual(undefined, returnFoo(bar)); //How can you achieve this...
+		//assert.strictEqual(undefined typeof bar.foo); //...and this?
 		
-		assert.strictEqual(returnFoo(true), undefined); //Do you understand why?
+		assert.strictEqual(undefined, returnFoo(true)); //Do you understand why?
 		
 		try {
 			returnFoo(null);
@@ -166,18 +177,18 @@ describe('Chapter 08 Values', function() {
 		}
 		
 		function x() {}
-		//assert.strictEqual(x(), ???); //functions implicitly return undefined if nothing has been explicitly returned
+		//assert.strictEqual(???, x()); //functions implicitly return undefined if nothing has been explicitly returned
 
 	});
 	
 	it('Type Coercion', function() {
-		//assert.strictEqual('3' * '4', ???);
-		//assert.strictEqual(3 + ' times', ???);
+		//assert.strictEqual(???, '3' * '4');
+		//assert.strictEqual(???, 3 + ' times');
 		
 		var formData = { width: '100' };
 		var w = formData.width;
 		var outer = w + 20;
-		//assert.strictEqual(outer, ???);
+		//assert.strictEqual(???, outer);
 		
 		assert.isFalse(Boolean(0));
 		//assert.is???(Boolean(undefined));
@@ -187,7 +198,7 @@ describe('Chapter 08 Values', function() {
 		//assert.is???(Boolean(false)); //Wierd, isn't it? This is a pitfall. In any way, 'false', is a falsy value
 		
 		//assert.is???(Boolean(3));
-		////assert.is???(Boolean('abc'));
+		///assert.is???(Boolean('abc'));
 		//assert.is???(Boolean({}));
 		//assert.is???(Boolean([])); //The rest values are truthy values
 		//assert.is???(Boolean('false')); //Even this
@@ -197,17 +208,17 @@ describe('Chapter 08 Values', function() {
 		assert.isFalse(NaN === NaN); //Look at this! NaN is not equal to itself. Wierd, wierd.
 		assert.isTrue(isNaN(NaN));
 		assert.isTrue(isNaN(Number(undefined)));
-		assert.strictEqual(Number(null), 0); //Could you remenber this?... neither I can
-		assert.strictEqual(Number(false), 0);
-		//assert.strictEqual(Number(true), ???);
-		//assert.strictEqual(Number('123'), ???);
+		assert.strictEqual(0, Number(null)); //Could you remenber this?... neither I can
+		assert.strictEqual(0, Number(false));
+		//assert.strictEqual(???, Number(true));
+		//assert.strictEqual(???, Number('123'));
 		//assert.is???(isNaN(Number('1+2')));
 		//assert.is???(isNaN(Number({})));
 		
-		assert.strictEqual(String(null), 'null');
-		//assert.strictEqual(String(undefined), ???);
+		assert.strictEqual('null', String(null));
+		//assert.strictEqual(???, String(undefined));
 		
-		//assert.strictEqual(Object('abc'), ???);
+		//assert.???(???, Object('abc').toString());
 		
 	});
 });
